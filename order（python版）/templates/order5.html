@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单省份分布</title>
+    <script src="../static/js/echarts.min.js"></script>
+    <script src="../static/js/china.js"></script>
+</head>
+<body>
+<div id="main" style="width:600px;height:500px"></div>
+<script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'),'shine');;
+    
+      option = {
+      title: {
+        text: '全国各地订单热力图',
+        subtext: '地图加热力图',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      visualMap: {
+        min: 0,
+        max: 5000,
+        calculable: true,
+        orient: 'vertical',
+        bottom: '0%'
+      },
+       series:[
+         {
+            name:'中国',
+            type:'map',
+            mapType:'china',
+            label:{
+               emphasis:{
+                  show:true
+               },
+               normal:{
+                  show:true
+               }
+            },
+            data: [
+                   {% for i in results1 %}
+                   {value:{{ results1[i] }}, name: '{{i}}'},
+                   {% endfor %}
+            ]
+          }
+       ]
+    };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+
+</script>
+<div class="container-form container-signup">
+  <form action="/order5.html" method="POST">
+      <button class="submit">NEXT</button>
+  </form>
+</div>
+</body>
+</html>

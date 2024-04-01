@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <title>pricerange</title>
+    <script type="text/JavaScript" src="../static/js/echarts.min.js"></script>
+</head>
+<body>
+<div align="center"></div>
+    <div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var range_name = "{{ name }}";
+    var number = "{{ num }}";
+    option = {
+  title: {
+    text: 'price_range',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: '50%',
+      data: [
+               {% for i in results %}
+               {value:{{ results[i] }}, name: '{{i}}'},
+               {% endfor %}
+          ],
+
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+    function makePie() {
+        myChart.clear();
+        myChart.setOption(option);//setOption方法生成一个简单的饼状图
+    }
+    // 初始化选择画饼图
+    makePie()
+</script>
+<div class="container-form container-signup">
+    <form action="/order_price1.html" method="post">
+        <h2 class="form-title">下一张表</h2>
+        <button class="submit">NEXT</button>
+    </form>
+
+</div>
+</body>
+<body>
+    <div class="container-overlay">
+        <form action="/order_price1.html" method="post">
+            <h2 class="form-title">添加</h2>
+            <input type="text" placeholder="column" name="column" class="input">
+            <input type="text" placeholder="text" name="content" class="input">
+            <button class="submit">添加</button>
+        </form>
+    </div>
+    <div class="container-overlay1">
+        <form action="/order_price1.html" method="POST">
+            <h2 class="form-title">删除</h2>
+            <input type="text" placeholder="column" name="column1" class="input">
+            <input type="text" placeholder="text" name="content1" class="input">
+            <button class="submit">删除</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
+

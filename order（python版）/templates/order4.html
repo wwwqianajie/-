@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>8、9月订单状况数据对比</title>
+    <script src="../static/js/echarts.min.js"></script>
+</head>
+<body>
+<div id="main" style="width:1000px;height:400px"></div>
+<script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'));
+
+      var contion = [{% for item in xlist1 %}'{{ item }}',{% endfor %}];
+      var all = [{% for item in ylist1 %}{{ item }},{% endfor %}];
+      var add = [{% for item in ylist2 %}{{ item }},{% endfor %}];
+      option = {
+      title: {
+        text: '8、9月订单状况数据对比'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: contion,
+        axisLabel:{
+           interval:0,
+           rotate:4
+        }
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '8月',
+          type: 'line',
+          stack: 'Total',
+          data: add
+        },
+        {
+          name: '9月',
+          type: 'line',
+          stack: 'Total',
+          data: all
+        }
+      ]
+};
+
+      myChart.setOption(option);
+
+
+
+</script>
+<div class="container-form container-signup">
+    <form action="/order4.html" method="POST">
+        <button class="submit">NEXT</button>
+    </form>
+</div>
+</body>
+</html>

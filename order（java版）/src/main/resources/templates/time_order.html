@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>time_order</title>
+    <script src="js/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        #header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 36px;
+            text-align: center;
+        }
+        p {
+            font-size: 20px;
+            text-align: center;
+        }
+        #chart {
+            margin: 0 auto;
+            width: 80%;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <h1>各个时间段的订单数量</h1>
+</div>
+<div>
+    <p>以下图表显示了各个时间段的订单数量</p>
+</div>
+<div id="chart"></div>
+
+<script type="text/javascript" th:inline="javascript">
+    var data = /*[[${data}]]*/ {};
+    var myChart = echarts.init(document.getElementById('chart'));
+    var option = {
+        title: {
+            text: 'Price Range',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left'
+        },
+        series: [{
+            name: 'Price Range',
+            type: 'pie',
+            radius: '50%',
+            data: Object.keys(data).map(function (key) {
+                return {
+                    value: data[key],
+                    name: key
+                };
+            })
+        }]
+    };
+    myChart.setOption(option);
+</script>
+</body>
+</html>

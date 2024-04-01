@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <!--指定编码格式，防止中文乱码-->
+    <meta charset="utf-8"> 
+    <title>pricerange</title>
+    <!-- 引入 echarts.js -->
+    <script type="text/JavaScript" src="../static/js/echarts.min.js"></script>
+</head>
+<body>
+<!--设定图像的对齐方式为居中对齐-->
+<div align="center"></div>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+ <!--放在<script></script>之间的是文本类型(text),javascript是告诉浏览器里面的文本是属于javascript脚本-->
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    // 获取变量
+    var range_name = "{{ name }}";
+    var number = "{{ num }}";
+    // 饼图配置文件
+    option = {
+  title: {
+    text: 'time_order',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  series: [
+    {
+      name: 'moment',
+      type: 'pie',
+      radius: '50%',
+      data: [
+               {% for i in results %}
+               {value:{{ results[i] }}, name: '{{i}}'},
+               {% endfor %}
+          ],
+
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+    function makePie() {
+        myChart.clear();
+        myChart.setOption(option);//setOption方法生成一个简单的饼状图
+    }
+    // 初始化选择画饼图
+    makePie()
+</script>
+<div class="container-form container-signup">
+    <form action="/order_price2.html" method="POST">
+        <button class="submit">NEXT</button>
+    </form>
+</div>
+</body>
+</html>
+
